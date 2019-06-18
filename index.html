@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrapper {
+            text-align: center;
+        }
+        .button {
+            position: absolute;
+            top: 50%;
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #3e8e41}
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="rectangle" width="1000px" height="500px" style="border: 1px solid lightyellow"></canvas>
+<div class="wrapper">
+<button class="button" onclick="change()">Draw a Rectangle</button>
+</div>
+
+<script>
+    let Rectangle = function (height,width) {
+        this.height = height;
+        this.width = width;
+
+        this.getCircumference = function () {
+            return this.height * this.width * 0.5;
+        };
+        this.getArea = function () {
+            return this.height*this.width;
+        };
+
+        this.getRandomHex = function() {
+            return Math.floor(Math.random()*255);
+        }
+        this.getRandomColor = function(){
+            let red = this.getRandomHex();
+            let green = this.getRandomHex();
+            let blue = this.getRandomHex();
+            return "rgb(" + red + "," + blue + "," + green +")";
+        }
+        this.drawRectangle = function () {
+            let c = document.getElementById("rectangle");
+            let ctx = c.getContext("2d");
+            ctx.fillStyle = this.getRandomColor();
+            ctx.fillRect(50,50,this.height,this.width);
+        }
+
+    };
+
+    function change(){
+
+        let height = prompt('Nhập chiều dài');
+        let width = prompt('Nhập chiều rộng');
+
+        let rectangle = new Rectangle(height,width);
+
+        let area = rectangle.getArea();
+        let circumference = rectangle.getCircumference();
+
+        alert('Diện tích là ' + area + 'Chu vi là ' + circumference);
+        rectangle.drawRectangle();
+
+    };
+
+</script>
+</body>
+</html>
